@@ -66,6 +66,11 @@ sudo cryptsetup -y -v luksFormat ${dev}p2
 ```
 (Note: `Are you sure? (Type 'yes' in capital letters): YES` needs to be in *CAPITAL LETTERS*)
 
+Open it for use
+```
+sudo cryptsetup open /dev/<root-partition> root
+```
+
 
 ### [Alt 1] Make root partition (`btrfs`)
 Create and mount btrfs root partition
