@@ -101,6 +101,11 @@ sudo btrfs subvolume create persist
 sudo btrfs subvolume create nixos
 ```
 
+Check
+```
+sudo btrfs subvolume list /tmp/root
+```
+
 ### [Alt 2] Make system partition (`ext4`)
 Create the base btrfs partition:
 ```
@@ -126,10 +131,45 @@ Mount root into tmpfs: (Yes! nix goes poof on reboot and recreates itself)
 ```
 sudo mount -t tmpfs none /mnt
 ```
-
+Make dirs:
+```
+mkdir -p /mnt/{boot,nix,home,persist,etc/nixos}
+```
 
 
 Mount boot
 ```
-sudo mount /dev/disk/by-label/BOOT
+sudo mount /dev/disk/by-label/BOOT /mnt/boot
 ```
+
+## Mount rest (btrfs)
+```
+for p in nix home persist; do
+  sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=$p /mnt/$p;
+done
+sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nixos /mnt/etc/nixos;
+```
+
+(OR individually)
+```
+sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nix /mnt/nix;
+sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=home /mnt/home;
+sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=persist /mnt/persist;
+sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nixos /mnt/etc/nixos;
+```
+
+Check:
+```
+mount | grep /mnt/
+```
+Expect:
+```
+/dev/nvme0n1p1 on /mnt/boot type vfat (rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+/dev/mapper/root on /mnt/nix type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/nix)
+/dev/mapper/root on /mnt/home type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/home)
+/dev/mapper/root on /mnt/nix type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/nix)
+/dev/mapper/root on /mnt/home type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/home)
+/dev/mapper/root on /mnt/persist type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=258,subvol=/persist)
+/dev/mapper/root on /mnt/etc/nixos type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=259,subvol=/nixos)
+```
+
