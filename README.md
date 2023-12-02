@@ -70,9 +70,7 @@ sudo cryptsetup -y -v luksFormat ${dev}p2
 ### [Alt 1] Make root partition (`btrfs`)
 Create and mount btrfs root partition
 ```
-sudo mkfs.btrfs /dev/mapper/root -L NIXROOT
-mkdir /tmp/root
-sudo mount /dev/mapper/root -o compress-force=zstd,noatime,ssd /tmp/root
+sudo mkfs.btrfs /dev/mapper/root -L NIX
 ```
 
 Check:
@@ -84,7 +82,23 @@ Expect:
 nvme0n1                              931.5G 
 ├─nvme0n1p1 BOOT                         1G 199D-4E10
 └─nvme0n1p2                          930.5G 4aec46fe-24a5-4a06-abca-514ea4e58c8c
-  └─root    NIXROOT                  930.5G d8865779-5b1e-4bc8-8a3a-28ea75edda28
+  └─root    NIX                      930.5G 8b2e600a-deb0-49db-8ca7-caed5093fbbe
+```
+
+#### Create subvolumes in btrfs.
+Mount to a temp location
+```
+mkdir /tmp/root
+sudo mount /dev/mapper/root -o compress-force=zstd,noatime,ssd /tmp/root
+cd /tmp/root
+```
+
+Create subvolumes
+```
+sudo btrfs subvolume create nix
+sudo btrfs subvolume create home
+sudo btrfs subvolume create persist
+sudo btrfs subvolume create nixos
 ```
 
 ### [Alt 2] Make system partition (`ext4`)
