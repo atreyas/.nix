@@ -63,6 +63,7 @@ sudo fatlabel ${dev}p1 BOOT
 
 ```
 sudo cryptsetup -y -v luksFormat ${dev}p2
+sudo cryptsetup config /dev/nvme0n1p2 --label NIX-ENC
 ```
 (Note: `Are you sure? (Type 'yes' in capital letters): YES` needs to be in *CAPITAL LETTERS*)
 
