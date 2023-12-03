@@ -180,7 +180,7 @@ Expect:
 
 ### Ready dotfiles
 
-1. Clone/Download dotfiles (`.nix/`) to `/home` and `cd /home/.nix` (because simpler)
+1. Clone/Download dotfiles to `/home/.nix` and `cd /home/.nix` (because simpler)
 2. Update `flake.nix` to your settings.
 3. Verify/Update `configuration.nix` for your users and hardware
   1. If you are not me, update `initialHashedPassword` with something that you know.  
@@ -191,8 +191,9 @@ Expect:
 
 ### Really install
 
+(If you are in the working directory, `.#` will suffice)
 ```
-sudo nixos-install --flake .#  #or /home/.nix/#
+sudo nixos-install --flake /home/.nix/#
 ```
 
 ## Reboot
