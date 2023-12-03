@@ -87,7 +87,7 @@ Expect:
 ```
 nvme0n1                              931.5G 
 ├─nvme0n1p1 BOOT                         1G 199D-4E10
-└─nvme0n1p2                          930.5G 4aec46fe-24a5-4a06-abca-514ea4e58c8c
+└─nvme0n1p2 NIX-ENC                  930.5G 4aec46fe-24a5-4a06-abca-514ea4e58c8c
   └─root    NIX                      930.5G 8b2e600a-deb0-49db-8ca7-caed5093fbbe
 ```
 
@@ -139,7 +139,7 @@ sudo mount -t tmpfs none /mnt
 ```
 Make dirs:
 ```
-mkdir -p /mnt/{boot,nix,home,persist,etc/nixos}
+mkdir -p /mnt/{boot,nix,home,persist}
 ```
 
 
@@ -153,7 +153,6 @@ sudo mount /dev/disk/by-label/BOOT /mnt/boot
 for p in nix home persist; do
   sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=$p /mnt/$p;
 done
-sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nixos /mnt/etc/nixos;
 ```
 
 (OR individually)
@@ -161,7 +160,6 @@ sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nixo
 sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nix /mnt/nix;
 sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=home /mnt/home;
 sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=persist /mnt/persist;
-sudo mount /dev/disk/by-label/NIX -o compress-force=zstd,noatime,ssd,subvol=nixos /mnt/etc/nixos;
 ```
 
 Check:
@@ -176,6 +174,29 @@ Expect:
 /dev/mapper/root on /mnt/nix type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/nix)
 /dev/mapper/root on /mnt/home type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/home)
 /dev/mapper/root on /mnt/persist type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=258,subvol=/persist)
-/dev/mapper/root on /mnt/etc/nixos type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=259,subvol=/nixos)
 ```
 
+## Install
+
+### Ready dotfiles
+
+1. Clone/Download dotfiles (`.nix/`) to `/home` and `cd /home/.nix` (because simpler)
+2. Update `flake.nix` to your settings.
+3. Verify/Update `configuration.nix` for your users and hardware
+  1. If you are not me, update `initialHashedPassword` with something that you know.  
+     Generate it using: `mkpasswd -m sha-512`
+  2. Note: This is only used initially. Select something that you will be okay committing to git.
+4. Update `hardware-configuration.nix` for any hardware specific changes
+  1. Use `nixos-generate-config` if unsure or need a reference.
+
+### Really install
+
+```
+sudo nixos-install --flake .#  #or /home/.nix/#
+```
+
+## Reboot
+
+```
+sudo reboot
+```
