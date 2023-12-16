@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, user, system, ... }:
 
 {
+  fonts.fontconfig.enable = true;
   home = {
-    username = "atreyas";
-    homeDirectory = "/home/atreyas";
+    username = "${user.name}";
+    homeDirectory = "/home/${user.name}";
+    enableDebugInfo = true;
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -21,12 +23,16 @@
       nq busybox
 
       #pinentry-qt
-      nnn
       #atuin
+
+      # command line
+      fzf
+      eza
 
       # Rusty
       fd
       ripgrep 
+      zoxide # also add `fzf`
 
       xclip
 
@@ -47,6 +53,7 @@
     file = {
       # Make a symlink from dotfiles/screenrc to $HOME/.screenrc
       # ".screenrc".source = dotfiles/screenrc;
+      ".zshrc".source = ./dotfiles/zshrc;
 
       # Inline specify .gradle/gradle.properties
       # ".gradle/gradle.properties".text = ''

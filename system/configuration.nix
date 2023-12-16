@@ -88,8 +88,6 @@
   
   services.fprintd = {
     enable = true;
-    tod.enable = true;
-    tod.driver = pkgs.libfprint-2-tod1-goodix;
   };
 
   # Configure keymap in X11
@@ -119,12 +117,12 @@
 
   users.mutableUsers = false;
   # Define a user account.
-  users.users.${user} = {
+  users.users.${user.name} = {
     isNormalUser = true;
     uid = 1000;
     initialHashedPassword = "$6$lT2E4HJwyBLkYSck$WLiug.IQ7fD3omg8X0XXSlF3AQwdd.rGl3i29Bp6UZxbtPl79x1rmo.fur2rx9F8sFUfFrnyN6K1YYvNPsv16/";
-    hashedPasswordFile = "/etc/hashed-passwords/${user}"; # Generate this with your password
-    extraGroups = [ "wheel" "networkmanager" "audio" "video" ]; # Enable ‘sudo’ for the user.
+    hashedPasswordFile = "/etc/hashed-passwords/${user.name}"; # Generate this with your password
+    extraGroups = [ "wheel" "networkmanager" "audio" "video" ]; # wheel = ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
   users.defaultUserShell = pkgs.zsh;
@@ -138,6 +136,7 @@
     lsof
     usbutils
     git
+    ping
     lshw
     hwinfo
   ];

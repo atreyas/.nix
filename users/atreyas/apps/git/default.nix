@@ -1,4 +1,5 @@
-{config, user, ...}:
+{ pkgs, user, ... }:
+
 {
   programs.git = {
     enable = true;
@@ -9,5 +10,5 @@
       credential.helper = "manager";
     };
   };
-  programs.git-credential-manager.enable = true;
+  home.packages = with pkgs; [ git-credential-manager ];
 }

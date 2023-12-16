@@ -26,7 +26,6 @@
     impermanence } @ inputs:
   let
     system = "x86_64-linux";
-    user = "atreyas"; # Maybe more later
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
@@ -36,11 +35,17 @@
 
   in {
     nixosConfigurations = {
-      "r3-fw13-nix" = lib.nixosSystem {
+      "r3-fw13-nix" = 
+        let
+	  user = rec {
+            name = "atreyas";
+	    email = name + "@gmail.com";
+          };
+      in lib.nixosSystem {
         inherit system;
 
         modules = [
-	  nixos-hardware.nixosModules.framework-13-7040-amd
+	  #nixos-hardware.nixosModules.framework-13-7040-amd
           ./system/configuration.nix
           impermanence.nixosModules.impermanence
           ./system/impermanence.nix
@@ -50,8 +55,9 @@
               useGlobalPkgs = true;
 	      useUserPackages = true;
 	      users = {
-                ${user} = ./users/${user};
+                ${user.name} = ./users/${user.name};
 	      };
+  	      extraSpecialArgs = { inherit inputs system user; };
 	    };
 	  }
         ];

@@ -12,8 +12,6 @@
     files = [
       "/etc/machine-id"
       "/etc/nix/id_rsa"
-      #"/etc/passwd"
-      #"/etc/group"
     ];
   };  
 }
