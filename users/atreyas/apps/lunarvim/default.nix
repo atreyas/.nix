@@ -1,0 +1,5 @@
+{
+  programs.lunarvim {
+    enable = true;
+  }
+}
