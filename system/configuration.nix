@@ -136,7 +136,6 @@
     lsof
     usbutils
     git
-    ping
     lshw
     hwinfo
   ];

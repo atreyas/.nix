@@ -3,6 +3,7 @@
 {
   programs.git = {
     enable = true;
+    includes = [ { path = "./gitconfig"; } ];
     userName = "Atreya Srivathsan";
     userEmail = "${user.email}";
     lfs.enable = true;
