@@ -1,7 +1,8 @@
 { config, pkgs, ...  }:
 
 let
-  
+  toLua = str: "lua << EOF\n${str}\nEOF\n";  
+  inlineLua = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";  
 in{
   home.packages = with pkgs; [
     vscode-extensions.ms-vscode.cpptools
@@ -17,11 +18,25 @@ in{
     '';
 
     plugins = with pkgs.vimPlugins; [
+      {
+        plugin = gruvbox-nvim;
+        config = "colorscheme gruvbox";
+      }
       ## Treesitter
       nvim-treesitter
       nvim-treesitter.withAllGrammars
-      nvim-treesitter-textobjects
-      nvim-lspconfig
+      nvim-treesitter-textobjects 
+
+      ## lsp
+      {
+        plugin = nvim-lspconfig;
+        config = inlineLua ./plugins/lsp.lua;
+      }
+
+      {
+        plugin = comment-nvim;
+        config = inlineLua ./plugins/comment.lua;
+      }
       
       nvim-cmp
       cmp-nvim-lsp

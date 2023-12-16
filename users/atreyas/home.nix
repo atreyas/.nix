@@ -28,10 +28,11 @@
       # command line
       fzf
       eza
-
-      # Rusty
+      ## Rusty
+      alacritty
       fd
       ripgrep 
+	  starship
       zoxide # also add `fzf`
 
       xclip
@@ -40,7 +41,8 @@
       # # overrides. You can do that directly here, just don't forget the
       # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
       # # fonts?
-      (nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+      #(nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+      nerdfonts
 
       # # You can also create simple shell scripts directly inside your
       # # configuration. For example, this adds a command 'my-hello' to your
