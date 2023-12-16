@@ -1,6 +1,8 @@
 { config, pkgs, ...  }:
 
-{
+let
+  
+in{
   home.packages = with pkgs; [
     vscode-extensions.ms-vscode.cpptools
   ];
@@ -10,6 +12,10 @@
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
+    extraLuaConfig = ''
+      ${builtins.readFile ./options.lua}
+    '';
+
     plugins = with pkgs.vimPlugins; [
       ## Treesitter
       nvim-treesitter
