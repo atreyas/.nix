@@ -37,11 +37,14 @@ in{
         plugin = comment-nvim;
         config = inlineLua ./plugins/comment.lua;
       }
-      
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
       cmp-cmdline
+
+	  vim-hexokinase
+	  vim-dirvish
+	  mini-nvim
 
       clangd_extensions-nvim
       nvim-lint
