@@ -15,6 +15,7 @@
     };
     # Impermanence
     impermanence.url = "github:nix-community/impermanence/master"; 
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
@@ -23,7 +24,9 @@
     nixos-hardware,
     flake-parts,
     home-manager,
-    impermanence } @ inputs:
+    impermanence,
+    stylix
+  } @ inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -36,32 +39,32 @@
   in {
     nixosConfigurations = {
       "r3-fw13-nix" = 
-        let
-	  user = rec {
-            name = "atreyas";
-	    email = name + "@gmail.com";
-          };
+      let
+        user = rec {
+          name = "atreyas";
+          email = name + "@gmail.com";
+        };
       in lib.nixosSystem {
         inherit system;
 
         modules = [
-	  #nixos-hardware.nixosModules.framework-13-7040-amd
+        #nixos-hardware.nixosModules.framework-13-7040-amd
           ./system/configuration.nix
           impermanence.nixosModules.impermanence
           ./system/impermanence.nix
-	  home-manager.nixosModules.home-manager
-	  { # This is separate from the above
-	    home-manager = {
+          home-manager.nixosModules.home-manager
+          { # This is separate from the above
+            home-manager = {
               useGlobalPkgs = true;
-	      useUserPackages = true;
-	      users = {
+              useUserPackages = true;
+              users = {
                 ${user.name} = ./users/${user.name};
-	      };
-  	      extraSpecialArgs = { inherit inputs system user; };
-	    };
-	  }
+              };
+              extraSpecialArgs = { inherit inputs system user; };
+            };
+          }
         ];
-	specialArgs = { inherit inputs system user; };
+        specialArgs = { inherit inputs system user; };
       };
     };
   };
