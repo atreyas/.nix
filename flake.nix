@@ -15,7 +15,17 @@
     };
     # Impermanence
     impermanence.url = "github:nix-community/impermanence/master"; 
+    # Stylix theming
     stylix.url = "github:danth/stylix";
+    # Mozilla/Firefox
+    mozilla-pkgs = {
+      url = "github:mozilla/nixpkgs-mozilla";
+      flake = false;
+    };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -25,7 +35,7 @@
     flake-parts,
     home-manager,
     impermanence,
-    stylix
+    ...
   } @ inputs:
   let
     system = "x86_64-linux";
