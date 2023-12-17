@@ -4,12 +4,17 @@
     enable = true;
     settings = {
       window = {
-        padding.x = 5;
-        padding.y = 5;
+        padding.x = 2;
+        padding.y = 2;
         decorations = "Full";
         # opacity = 1;
       };
       cursor.style = "Beam";
+      key_bindings = [
+        { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
+        { key = "Space"; mods = "Control"; action = "ToggleViMode"; }
+        { key = "Return"; mods = "Alt"; action = "ToggleFullScreen"; }
+      ];
       shell = {
         program = "zsh";
       };

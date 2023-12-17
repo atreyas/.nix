@@ -1,9 +1,8 @@
 { config, pkgs, ...  }:
 
 let
-  toLua = str: "lua << EOF\n${str}\nEOF\n";  
-  inlineLua = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";  
-in{
+  inlineLua = file: "${builtins.readFile file}";  
+in {
   home.packages = with pkgs; [
     vscode-extensions.ms-vscode.cpptools
   ];
@@ -16,6 +15,13 @@ in{
     extraLuaConfig = ''
       ${builtins.readFile ./options.lua}
     '';
+    extraPackages = with pkgs; [
+      lua-language-server ## Remove with direnv
+      rnix-lsp
+
+      xclip
+      wl-clipboard
+    ];
 
     plugins = with pkgs.vimPlugins; [
       {
@@ -28,15 +34,26 @@ in{
       nvim-treesitter-textobjects 
 
       ## lsp
+      neodev-nvim
       {
         plugin = nvim-lspconfig;
+        type = "lua";
         config = inlineLua ./plugins/lsp.lua;
       }
 
       {
         plugin = comment-nvim;
+        type = "lua";
         config = inlineLua ./plugins/comment.lua;
       }
+
+      {
+        plugin = lualine-nvim;
+        type = "lua";
+        config = inlineLua ./plugins/lualine.lua;
+      }
+      nvim-web-devicons
+
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
