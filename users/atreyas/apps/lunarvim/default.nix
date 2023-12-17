@@ -1,5 +1,7 @@
+{pkgs, ...}:
 {
-  programs.lunarvim {
-    enable = true;
-  }
+  home.packages = with pkgs; [
+    lunarvim
+  ];
+  
 }
