@@ -1,5 +1,6 @@
 {
   imports = [
+    ./alacritty
     ./git
     ./neovim
     ./lunarvim
