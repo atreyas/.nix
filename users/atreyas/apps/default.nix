@@ -7,5 +7,6 @@
     ./neovim
     ./lunarvim
     ./nnn
+    ./starship
   ];
 }

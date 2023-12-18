@@ -28,7 +28,6 @@
       ## Rusty
       fd
       ripgrep 
-	  starship
       zoxide # also add `fzf`
 
       xclip
