@@ -4,6 +4,7 @@
   inputs = {
     # Nix Packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
     # Community maintained common hardware config
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # Flake-parts
@@ -24,7 +25,7 @@
     };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unfree";
     };
   };
 
@@ -40,7 +41,7 @@
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
-      inherit system;
+      inherit system ;
       config = { allowUnfree = true; };
     };
     # Overlays can go here
@@ -58,7 +59,7 @@
         inherit system;
 
         modules = [
-        #nixos-hardware.nixosModules.framework-13-7040-amd
+          #nixos-hardware.nixosModules.framework-13-7040-amd
           ./system/configuration.nix
           impermanence.nixosModules.impermanence
           ./system/impermanence.nix

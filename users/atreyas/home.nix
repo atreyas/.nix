@@ -12,10 +12,7 @@
     };
 
     packages = with pkgs; [
-      firefox
-
-      # git
-      git-credential-manager
+      #firefox
 
       # tippy tops
       iotop htop btop ncdu duf
@@ -29,7 +26,6 @@
       fzf
       eza
       ## Rusty
-      alacritty
       fd
       ripgrep 
 	  starship
