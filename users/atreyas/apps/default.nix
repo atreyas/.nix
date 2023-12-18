@@ -1,6 +1,7 @@
 {
   imports = [
     ./alacritty
+    ./direnv
     ./firefox
     ./git
     ./neovim

@@ -23,3 +23,5 @@ SAVEHIST=10000
 #setopt beep nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
+
+eval "$(direnv hook zsh)"
