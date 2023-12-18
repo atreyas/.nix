@@ -54,6 +54,12 @@ in {
       }
       nvim-web-devicons
 
+      {
+        plugin = copilot-cmp;
+        type = "lua";
+        config = inlineLua ./plugins/copilot.lua;
+      }
+
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
