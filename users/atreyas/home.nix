@@ -17,7 +17,9 @@
       # tippy tops
       iotop htop btop ncdu duf
       # other sysutils
-      nq busybox
+      nq
+      uutils-coreutils
+      #busybox
 
       #pinentry-qt
       #atuin
