@@ -13,7 +13,7 @@ in {
     vimdiffAlias = true;
     defaultEditor = true;
     extraLuaConfig = ''
-      ${builtins.readFile ./options.lua}
+      ${builtins.readFile ./settings.lua}
     '';
     extraPackages = with pkgs; [
       lua-language-server ## Remove with direnv
@@ -78,6 +78,8 @@ in {
 
       clangd_extensions-nvim
       nvim-lint
+
+      neorg
     ];
   };
 }
