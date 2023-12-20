@@ -71,9 +71,10 @@ in {
       cmp-buffer
       cmp-cmdline
 
-	  vim-hexokinase
-	  vim-dirvish
-	  mini-nvim
+      vim-hexokinase
+      vim-dirvish
+      vim-surround
+      mini-nvim
 
       clangd_extensions-nvim
       nvim-lint
