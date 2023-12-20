@@ -12,14 +12,12 @@
     };
 
     packages = with pkgs; [
-      #firefox
-
       # tippy tops
       iotop htop btop ncdu duf
       # other sysutils
       nq
-      uutils-coreutils
-      #busybox
+      (uutils-coreutils.override { prefix = ""; })
+      qjackctl
 
       #pinentry-qt
       #atuin

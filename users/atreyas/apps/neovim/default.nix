@@ -60,6 +60,12 @@ in {
         config = inlineLua ./plugins/copilot.lua;
       }
 
+      {
+        plugin = indent-blankline-nvim;
+        type = "lua";
+        config = "require('ibl').setup()";
+      }
+
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
