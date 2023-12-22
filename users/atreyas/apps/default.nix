@@ -8,5 +8,6 @@
     ./lunarvim
     ./nnn
     ./starship
+    ./zellij
   ];
 }

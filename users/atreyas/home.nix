@@ -16,6 +16,7 @@
       iotop htop btop ncdu duf
       # other sysutils
       nq
+      dtach
       (uutils-coreutils.override { prefix = ""; })
       qjackctl
 

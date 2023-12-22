@@ -1,0 +1,32 @@
+layout {
+    tab_template name="default_tab" {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children 
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    default_tab name="default" {
+      
+    }
+    default_tab name="nix" cwd="$HOME/.nix" focus=true split_direction="vertical" {
+        pane {
+            name "base"
+        }
+        pane {
+            name "home-manager"
+            cwd "users/$USER"
+        }
+    }
+    default_tab name="workspace" cwd="$HOME/workspace" {
+
+    }
+    default_tab name="tippy-tops" {
+        pane split_direction="vertical" {
+            pane name="htop" command="htop"
+            pane name="btop" command="btop"
+        }
+    }
+}
