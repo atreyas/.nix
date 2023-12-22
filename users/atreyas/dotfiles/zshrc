@@ -24,5 +24,8 @@ SAVEHIST=10000
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
+# aliases
+alias g=git
+
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
