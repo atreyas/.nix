@@ -34,6 +34,7 @@ in {
       nvim-treesitter-textobjects 
 
       plenary-nvim
+      telescope-fzf-native-nvim
       {
         plugin = telescope-nvim;
         type = "lua";
@@ -43,6 +44,7 @@ in {
       ## lsp
       neodev-nvim
       nvim-compe # Autocompletion
+      dressing-nvim 
       {
         plugin = nvim-lspconfig;
         type = "lua";
@@ -79,10 +81,17 @@ in {
         config = "require('ibl').setup()";
       }
 
-      nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
+      cmp-path
+      luasnip
       cmp-cmdline
+      cmp_luasnip
+      {
+        plugin = nvim-cmp;
+        type = "lua";
+        config = inlineLua ./plugins/nvim-cmp.lua;
+      }
 
       vim-hexokinase
       vim-dirvish

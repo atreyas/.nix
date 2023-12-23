@@ -27,6 +27,7 @@
       fzf
       eza
       ## Rusty
+      bat
       fd
       ripgrep 
       zoxide # also add `fzf`

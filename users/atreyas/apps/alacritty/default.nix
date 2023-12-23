@@ -13,7 +13,7 @@
       cursor.style = "Beam";
       key_bindings = [
         { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
-        { key = "Space"; mods = "Control"; action = "ToggleViMode"; }
+        { key = "Space"; mods = "Control|Shift"; action = "ToggleViMode"; }
         { key = "Return"; mods = "Alt"; action = "ToggleFullScreen"; }
       ];
       shell = {

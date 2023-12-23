@@ -65,3 +65,15 @@ lspconfig.rnix.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.vls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lspconfig.tsserver.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}

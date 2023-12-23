@@ -38,6 +38,8 @@ fi
 
 # aliases
 alias g=git
+alias ls=eza
+alias cat=bat
 
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
