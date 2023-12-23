@@ -33,8 +33,16 @@ in {
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects 
 
+      plenary-nvim
+      {
+        plugin = telescope-nvim;
+        type = "lua";
+        config = inlineLua ./plugins/telescope.lua;
+      }
+
       ## lsp
       neodev-nvim
+      nvim-compe # Autocompletion
       {
         plugin = nvim-lspconfig;
         type = "lua";
@@ -53,6 +61,11 @@ in {
         config = inlineLua ./plugins/lualine.lua;
       }
       nvim-web-devicons
+      {
+        plugin = nvim-tree-lua;
+        type = "lua";
+        config = "require('nvim-tree').setup()";
+      }
 
       {
         plugin = copilot-cmp;
