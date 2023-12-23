@@ -45,6 +45,8 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
       checkOnSave = {
@@ -61,19 +63,10 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
-lspconfig.rnix.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-lspconfig.vls.setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-lspconfig.tsserver.setup{
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+local servers = { 'clangd', 'rnix', 'pyright', 'tsserver', 'vls', 'yamlls' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end

@@ -43,3 +43,4 @@ alias cat=bat
 
 eval "$(starship init zsh)"
 eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh)"
