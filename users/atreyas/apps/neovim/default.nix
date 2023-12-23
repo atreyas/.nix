@@ -2,6 +2,16 @@
 
 let
   inlineLua = file: "${builtins.readFile file}";  
+  withCfg = plugin: {
+    inherit plugin;
+    type = "lua";
+    config = inlineLua ./plugins/${plugin.pname}.lua;
+  };
+  withDefaultCfg = plugin: name: {
+    inherit plugin;
+    type = "lua";
+    config = "require('${name}').setup()";
+  };
 in {
   home.packages = with pkgs; [
     vscode-extensions.ms-vscode.cpptools
@@ -12,6 +22,9 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
+    extraConfig = ''
+      imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+    '';
     extraLuaConfig = ''
       ${builtins.readFile ./settings.lua}
     '';
@@ -35,12 +48,7 @@ in {
 
       plenary-nvim
       telescope-fzf-native-nvim
-      {
-        plugin = telescope-nvim;
-        type = "lua";
-        config = inlineLua ./plugins/telescope.lua;
-      }
-
+      (withCfg telescope-nvim)
       ## lsp
       neodev-nvim
       nvim-compe # Autocompletion
@@ -51,35 +59,17 @@ in {
         config = inlineLua ./plugins/lsp.lua;
       }
 
-      {
-        plugin = comment-nvim;
-        type = "lua";
-        config = inlineLua ./plugins/comment.lua;
-      }
+      (withCfg comment-nvim)
 
-      {
-        plugin = lualine-nvim;
-        type = "lua";
-        config = inlineLua ./plugins/lualine.lua;
-      }
+      (withCfg lualine-nvim)
+
       nvim-web-devicons
-      {
-        plugin = nvim-tree-lua;
-        type = "lua";
-        config = "require('nvim-tree').setup()";
-      }
+      (withDefaultCfg nvim-tree-lua "nvim-tree")
 
-      {
-        plugin = copilot-cmp;
-        type = "lua";
-        config = inlineLua ./plugins/copilot.lua;
-      }
+      #copilot-cmp
+      copilot-vim
 
-      {
-        plugin = indent-blankline-nvim;
-        type = "lua";
-        config = "require('ibl').setup()";
-      }
+      (withDefaultCfg indent-blankline-nvim "ibl")
 
       cmp-nvim-lsp
       cmp-buffer
@@ -87,11 +77,7 @@ in {
       luasnip
       cmp-cmdline
       cmp_luasnip
-      {
-        plugin = nvim-cmp;
-        type = "lua";
-        config = inlineLua ./plugins/nvim-cmp.lua;
-      }
+      (withCfg nvim-cmp)
 
       vim-hexokinase
       vim-dirvish
