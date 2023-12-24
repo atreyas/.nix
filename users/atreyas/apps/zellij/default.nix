@@ -17,7 +17,10 @@
         };
       in
       {
-        normal = 
+        normal =
+          {
+            "unbind \"Ctrl b\"" = {};
+          } //
           alt_n_tab_n 1 //
           alt_n_tab_n 2 //
           alt_n_tab_n 3 //

@@ -2,7 +2,7 @@
 
 let
   inlineLua = file: "${builtins.readFile file}";  
-  withCfg = plugin: {
+  withLua = plugin: {
     inherit plugin;
     type = "lua";
     config = inlineLua ./plugins/${plugin.pname}.lua;
@@ -27,10 +27,14 @@ in {
     '';
     extraLuaConfig = ''
       ${builtins.readFile ./settings.lua}
+      vim.keymap.set('n', '<leader>tr', vim.cmd.NvimTreeToggle)
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+      vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
     '';
     extraPackages = with pkgs; [
       lua-language-server ## Remove with direnv
       rnix-lsp
+      rust-analyzer
 
       xclip
       wl-clipboard
@@ -45,13 +49,18 @@ in {
       nvim-treesitter
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects 
+      undotree
 
       plenary-nvim
       telescope-fzf-native-nvim
-      (withCfg telescope-nvim)
+      (withLua telescope-nvim)
+
+      vim-fugitive
+
       ## lsp
       neodev-nvim
       nvim-compe # Autocompletion
+      rust-tools-nvim
       dressing-nvim 
       {
         plugin = nvim-lspconfig;
@@ -59,9 +68,9 @@ in {
         config = inlineLua ./plugins/lsp.lua;
       }
 
-      (withCfg comment-nvim)
+      (withLua comment-nvim)
 
-      (withCfg lualine-nvim)
+      (withLua lualine-nvim)
 
       nvim-web-devicons
       (withDefaultCfg nvim-tree-lua "nvim-tree")
@@ -72,12 +81,16 @@ in {
       (withDefaultCfg indent-blankline-nvim "ibl")
 
       cmp-nvim-lsp
+      cmp-nvim-lsp-signature-help
+      cmp-nvim-lua
       cmp-buffer
       cmp-path
+      vim-vsnip
+      cmp-vsnip
       luasnip
-      cmp-cmdline
       cmp_luasnip
-      (withCfg nvim-cmp)
+      cmp-cmdline
+      (withLua nvim-cmp)
 
       vim-hexokinase
       vim-dirvish
