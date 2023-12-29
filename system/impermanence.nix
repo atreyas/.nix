@@ -6,6 +6,7 @@
     directories = [
       "/etc/hashed-passwords"
       "/etc/ssh"
+      "/etc/nixos"
       "/etc/NetworkManager/system-connections"
       "/var/lib"
     ];

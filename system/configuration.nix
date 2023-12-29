@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, system, user, ... }:
+{ config, hostname, lib, pkgs, system, user, ... }:
 
 {
   imports =
@@ -10,15 +10,20 @@
       ./hardware-configuration.nix # Include the results of the hardware scan.
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot.enable = true;
-    systemd-boot.memtest86.enable = true;
-    systemd-boot.configurationLimit=10;
-    efi.canTouchEfiVariables = true;
-    timeout = 2;
-  };
   boot = {
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot.enable = true;
+      systemd-boot.memtest86.enable = true;
+      systemd-boot.configurationLimit=20;
+      efi.canTouchEfiVariables = true;
+      timeout = 2;
+    };
+    # Initialize with LUKS for decryption first
+    initrd.luks.devices."root" = {
+      device = "/dev/disk/by-label/NIX-ENC";
+      allowDiscards = true;
+    };
     supportedFilesystems = [ "btrfs" "ext4" ];
 
     # Upgrade kernel to latest
@@ -31,7 +36,7 @@
     # Use tmpfs for tmp. This is redundant with impermanence.
     tmp.useTmpfs = true;
   };
-
+  
   zramSwap.enable = true;
 
   # Add ephemeral systemd logs
@@ -48,7 +53,7 @@
   services.fwupd.enable = true;
   hardware.enableAllFirmware = true;
 
-  networking.hostName = "r3-fw13-nix"; # Define your hostname.
+  networking.hostName = "${hostname}"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -184,7 +189,7 @@
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+  system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

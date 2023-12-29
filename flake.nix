@@ -46,36 +46,50 @@
     };
     # Overlays can go here
     lib = nixpkgs.lib;
-
+    user = rec {
+      name = "atreyas";
+      email = name + "@gmail.com";
+    };
+    defaultModules = [
+      ./system/configuration.nix
+      impermanence.nixosModules.impermanence
+      ./system/impermanence.nix
+      home-manager.nixosModules.home-manager
+      { # This is separate from the above
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users = {
+            ${user.name} = ./users/${user.name};
+          };
+          extraSpecialArgs = { inherit inputs system user; };
+        };
+      }
+    ];
   in {
     nixosConfigurations = {
-      "r3-fw13-nix" = 
+      "r3-fw13-nix" =
       let
-        user = rec {
-          name = "atreyas";
-          email = name + "@gmail.com";
-        };
+        hostname = "r3-fw13-nix";
       in lib.nixosSystem {
         inherit system;
 
         modules = [
           #nixos-hardware.nixosModules.framework-13-7040-amd
-          ./system/configuration.nix
-          impermanence.nixosModules.impermanence
-          ./system/impermanence.nix
-          home-manager.nixosModules.home-manager
-          { # This is separate from the above
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users = {
-                ${user.name} = ./users/${user.name};
-              };
-              extraSpecialArgs = { inherit inputs system user; };
-            };
-          }
-        ];
-        specialArgs = { inherit inputs system user; };
+          ./system/hosts/r3-fw13-nix/system-configuration.nix
+        ] ++ defaultModules;
+        specialArgs = { inherit inputs hostname system user; };
+      };
+      "primus" =
+      let
+        hostname = "primus";
+      in lib.nixosSystem {
+        inherit system;
+
+        modules = [
+          ./system/hosts/primus/system-configuration.nix
+        ] ++ defaultModules;
+        specialArgs = { inherit inputs hostname system user; };
       };
     };
   };
