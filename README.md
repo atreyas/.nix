@@ -9,7 +9,7 @@ dev=/dev/nvme0n1
 fdisk ${dev}
 ```
 
-Create new GPT partition table
+Create new GPT partition table (This will replace the default dos table fdisk selects on a new disk)
 ```
 g
 ```
@@ -18,10 +18,11 @@ Create boot partition
 ```
 n
 <partition# - default>
+<first sector - default>
 +1G
 ```
 
-Change partition type for boot to "EFI System"
+Change partition type for boot to "EFI System" (Check list with `L`)
 ```
 t
 1
@@ -37,6 +38,23 @@ n
 Apply partitions
 ```
 w
+```
+
+Check with `fdisk -l ${dev}`
+e.g.: (with 2G boot EFI partition)
+```
+Disk /dev/nvme0n1: 931.5 GiB, 1000398934016 bytes, 1957029168 sectors
+Disk model: CT******                          
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: <GUID>
+
+Device           Start        End    Sectors  Size Type
+/dev/nvme0n1p1    2048    4196351    4194304    2G EFI System
+/dev/nvme0n1p2 4196352 3907028991 3902832640  1.8T Linux filesystem
+
 ```
 
 ## Format
@@ -69,7 +87,7 @@ sudo cryptsetup config /dev/nvme0n1p2 --label NIX-ENC
 
 Open it for use
 ```
-sudo cryptsetup open /dev/<root-partition> root
+sudo cryptsetup open ${dev}p2 root
 ```
 
 
@@ -113,6 +131,7 @@ sudo btrfs subvolume list /tmp/root
 ```
 
 ### [Alt 2] Make system partition (`ext4`)
+Note: This is outdated and untested for some time)
 Create the base btrfs partition:
 ```
 sudo mkfs.ext4 /dev/mapper/root -L NIX
@@ -171,8 +190,6 @@ Expect:
 /dev/nvme0n1p1 on /mnt/boot type vfat (rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
 /dev/mapper/root on /mnt/nix type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/nix)
 /dev/mapper/root on /mnt/home type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/home)
-/dev/mapper/root on /mnt/nix type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=256,subvol=/nix)
-/dev/mapper/root on /mnt/home type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=257,subvol=/home)
 /dev/mapper/root on /mnt/persist type btrfs (rw,noatime,compress-force=zstd:3,ssd,space_cache=v2,subvolid=258,subvol=/persist)
 ```
 
@@ -180,7 +197,7 @@ Expect:
 
 ### Ready dotfiles
 
-1. Clone/Download dotfiles to `/home/.nix` and `cd /home/.nix` (because simpler)
+1. Clone/Download dotfiles to `/mnt/home/.nix` and `cd /mnt/home/.nix` (because simpler)
 2. Update `flake.nix` to your settings.
 3. Verify/Update `configuration.nix` for your users and hardware
   1. If you are not me, update `initialHashedPassword` with something that you know.  
@@ -193,7 +210,7 @@ Expect:
 
 (If you are in the working directory, `.#` will suffice)
 ```
-sudo nixos-install --flake /home/.nix/#
+sudo nixos-install --flake /mnt/home/.nix/#
 ```
 
 ## Reboot
