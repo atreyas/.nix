@@ -53,6 +53,8 @@
       # Make a symlink from dotfiles/screenrc to $HOME/.screenrc
       # ".screenrc".source = dotfiles/screenrc;
       ".zshrc".source = ./dotfiles/zshrc;
+      ".gitconfig".source = ./dotfiles/gitconfig;
+      ".gitignore_global".source = ./dotfiles/gitignore_global;
 
       # Inline specify .gradle/gradle.properties
       # ".gradle/gradle.properties".text = ''

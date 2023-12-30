@@ -1,0 +1,49 @@
+[user]
+    name = Atreya Srivathsan
+    email = 1410778+atreyas@users.noreply.github.com 
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+	ui = true
+
+[diff]
+    colorMoved = default
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = simple
+
+[core]
+    editor = vim
+	pager = less -r
+	excludesFile = ~/.gitignore_global
+
+[alias]
+    diverges = !bash -c 'diff -u <(git rev-list --first-parent "${1}") <(git rev-list --first-parent "${2:-HEAD}") | sed -ne \"s/^ //p\" | head -1' -
+    st = status
+    ci = commit
+    bra = branch --all
+    br = branch
+    co = checkout
+    com = checkout main
+    df = diff
+    wd = diff --word-diff --word-diff-regex='\\w+|[^[:space:]]'
+
+    lg = log --all --decorate --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    up = !sh -c 'git pull --rebase --prune && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
+    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)\"%an\" <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+
+[rerere]
+  enabled = true
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
