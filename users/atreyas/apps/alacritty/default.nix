@@ -38,7 +38,7 @@
           style = "MediumItalic";
         };
         bold_italic = {
-          family = "JeetBrains Mono Nerd Font";
+          family = "JetBrains Mono Nerd Font";
           style = "BoldItalic";
         };
       };
