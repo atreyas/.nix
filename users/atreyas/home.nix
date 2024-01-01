@@ -11,6 +11,13 @@
       EDITOR = "nvim";
     };
 
+    # These don't work with Wayland
+    keyboard.options = [
+      #"caps:escape"
+      "caps:ctrl_modifier"
+      "ctrl:nocaps"
+    ];
+
     packages = with pkgs; [
       # tippy tops
       iotop htop btop ncdu duf

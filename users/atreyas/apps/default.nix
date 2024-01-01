@@ -1,7 +1,9 @@
 {
   imports = [
     ./alacritty
+    #./doomemacs
     ./direnv
+    #./emacs
     ./firefox
     ./git
     ./neovim

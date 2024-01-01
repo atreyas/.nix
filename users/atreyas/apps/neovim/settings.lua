@@ -2,10 +2,11 @@ local o = vim.opt -- because opt now supports all of o, bo, wo ?
 local g = vim.g
 local map = vim.keymap
 
-g.mapleader = '\''
-g.maplocalleader = ' '
+g.mapleader = ';'
+g.maplocalleader = ';'
 
 map.set('n', 'sr', ':%s/')
+map.set('i', 'jj', '<ESC>')
 
 o.clipboard = 'unnamedplus'
 

@@ -14,6 +14,15 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Nix-Doom-Emacs fix pending upstream pull for supporting emacs > 28
+    # nix-straight = {
+    #   url = "github:codingkoi/nix-straight.el?ref=codingkoi/apply-librephoenixs-fix";
+    #   flake = false;
+    # };
+    # doom-emacs = {
+    #   url = "github:nix-community/nix-doom-emacs";
+    #   inputs.nix-straight.follows = "nix-straight";
+    # };
     # Impermanence
     impermanence.url = "github:nix-community/impermanence/master"; 
     # Stylix theming
