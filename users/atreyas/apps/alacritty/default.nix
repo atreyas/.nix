@@ -7,7 +7,7 @@
         padding.x = 2;
         padding.y = 2;
         decorations = "None";
-        startup_mode = "Maximized";
+        #startup_mode = "Maximized"; # Gnome bug: https://gitlab.gnome.org/GNOME/mutter/-/issues/3229
         #opacity = 1.0;
       };
       cursor.style = "Beam";
