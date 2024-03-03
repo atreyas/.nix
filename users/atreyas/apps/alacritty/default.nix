@@ -7,11 +7,11 @@
         padding.x = 2;
         padding.y = 2;
         decorations = "None";
-        starup_mode = "Maximized";
+        startup_mode = "Maximized";
         #opacity = 1.0;
       };
       cursor.style = "Beam";
-      key_bindings = [
+      keyboard.bindings = [
         { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
         { key = "Space"; mods = "Control|Shift"; action = "ToggleViMode"; }
         { key = "Return"; mods = "Alt"; action = "ToggleFullScreen"; }
