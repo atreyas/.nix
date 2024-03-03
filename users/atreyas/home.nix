@@ -17,7 +17,7 @@
       "caps:ctrl_modifier"
       "ctrl:nocaps"
     ];
-
+    
     packages = with pkgs; [
       # tippy tops
       iotop htop btop ncdu duf

@@ -4,6 +4,7 @@
   inputs = {
     # Nix Packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Primarily for 1password
     nixpkgs-unfree.url = "github:numtide/nixpkgs-unfree";
     # Community maintained common hardware config
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -51,7 +52,12 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system ;
-      config = { allowUnfree = true; };
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "electron-25.9.0"
+        ];
+      };
     };
     # Overlays can go here
     lib = nixpkgs.lib;

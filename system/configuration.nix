@@ -45,6 +45,8 @@
     Storage=none
   '';
 
+
+  services.flatpak.enable = true;
 #  powerManagement.enable = true;
 #  powerManagement.cpuFreqGovernor = "schedutil";
 #  powerManagement.powertop.enable = false;
