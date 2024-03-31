@@ -33,7 +33,7 @@ in {
     '';
     extraPackages = with pkgs; [
       lua-language-server ## Remove with direnv
-      rnix-lsp
+      #rnix-lsp -- unmaintained and removed
       rust-analyzer
 
       xclip
