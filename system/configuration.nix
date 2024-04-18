@@ -147,9 +147,11 @@
     gparted
 
     lsof
+    pciutils
+    usbutils
+
     lshw
     hwinfo
-    usbutils
   ];
 
   programs = {
