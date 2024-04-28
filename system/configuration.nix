@@ -140,13 +140,16 @@
   # $ nix search wget
   environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
   environment.systemPackages = with pkgs; [
+    git
     vim
     wget
+
+    gparted
+
     lsof
-    usbutils
-    git
     lshw
     hwinfo
+    usbutils
   ];
 
   programs = {
