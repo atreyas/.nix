@@ -28,6 +28,7 @@ in {
     extraLuaConfig = ''
       ${builtins.readFile ./settings.lua}
       vim.keymap.set('n', '<leader>tr', vim.cmd.NvimTreeToggle)
+      vim.keymap.set('n', '<leader>tt', vim.cmd.NvimTreeFocus)
       vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
       vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
     '';

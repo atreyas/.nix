@@ -6,6 +6,8 @@ g.mapleader = ';'
 g.maplocalleader = ';'
 
 map.set('n', 'sr', ':%s/')
+map.set('n', '<Leader>bb', ':b#<CR>')
+map.set('n', '<Leader>b', ':ls<CR>:b')
 map.set('i', 'jj', '<ESC>')
 
 o.clipboard = 'unnamedplus'
