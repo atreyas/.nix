@@ -156,6 +156,7 @@
 
   programs = {
     vim.defaultEditor = true;
+    vim.enable = true;
     zsh.enable = true;
     mosh.enable = true;
   };

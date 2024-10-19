@@ -105,7 +105,7 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
-local servers = { 'clangd', 'pyright', 'tsserver', 'vls', 'yamlls' }
+local servers = { 'clangd', 'pyright', 'ts_ls', 'vls', 'yamlls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
