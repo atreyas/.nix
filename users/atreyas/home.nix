@@ -26,6 +26,7 @@
       dtach
       (uutils-coreutils.override { prefix = ""; })
       qjackctl
+      perf-tools
 
       #pinentry-qt
       #atuin

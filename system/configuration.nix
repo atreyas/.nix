@@ -152,6 +152,12 @@
 
     lshw
     hwinfo
+
+    comma
+
+    config.boot.kernelPackages.perf
+    config.boot.kernelPackages.tmon
+
   ];
 
   programs = {

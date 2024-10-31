@@ -63,7 +63,7 @@ in {
       nvim-compe # Autocompletion
       rust-tools-nvim
       {
-        plugin = nvim-bacon; # Rust Bacon
+        plugin = nvim-bacon # Rust Bacon
         type = "lua";
         config = inlineLua ./plugins/bacon.lua;
       }
