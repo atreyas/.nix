@@ -168,7 +168,7 @@
   };
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.latest;
     optimise.automatic = true;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
