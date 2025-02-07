@@ -60,7 +60,7 @@ in {
 
       ## lsp
       neodev-nvim
-      nvim-compe # Autocompletion
+      nvim-cmp # Autocompletion
       rust-tools-nvim
       {
         plugin = nvim-bacon; # Rust Bacon

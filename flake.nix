@@ -83,6 +83,7 @@
             ${user.name} = ./users/${user.name};
           };
           extraSpecialArgs = { inherit inputs system user; };
+          backupFileExtension = "hm-backup";
         };
       }
     ];

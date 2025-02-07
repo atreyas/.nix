@@ -16,7 +16,7 @@
         { key = "Space"; mods = "Control|Shift"; action = "ToggleViMode"; }
         { key = "Return"; mods = "Alt"; action = "ToggleFullScreen"; }
       ];
-      shell = {
+      terminal.shell = {
         program = "zsh";
       };
       scrolling = {
