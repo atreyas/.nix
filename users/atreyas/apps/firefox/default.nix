@@ -58,7 +58,7 @@
         }
       '';
 
-      extensions = with inputs.firefox-addons.packages.${system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${system}; [
         onepassword-password-manager
         tampermonkey
         tree-style-tab
