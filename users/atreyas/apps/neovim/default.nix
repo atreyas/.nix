@@ -22,9 +22,9 @@ in {
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
-    extraConfig = ''
-      imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-    '';
+    #extraConfig = ''
+    #  imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+    #'';
     extraLuaConfig = ''
       ${builtins.readFile ./settings.lua}
       vim.keymap.set('n', '<leader>tr', vim.cmd.NvimTreeToggle)
@@ -82,7 +82,7 @@ in {
       (withDefaultCfg nvim-tree-lua "nvim-tree")
 
       #copilot-cmp
-      copilot-vim
+      #copilot-vim
 
       (withDefaultCfg indent-blankline-nvim "ibl")
 
