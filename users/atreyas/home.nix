@@ -37,8 +37,11 @@
       ## Rusty
       bat
       fd
-      ripgrep 
+      ripgrep
       zoxide # also add `fzf`
+
+      # AI tools
+      claude-code
 
       xclip
       drawio
