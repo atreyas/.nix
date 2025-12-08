@@ -61,7 +61,8 @@ in {
       ## lsp
       neodev-nvim
       nvim-cmp # Autocompletion
-      rust-tools-nvim
+      #rust-tools-nvim # Deprecated
+      rustaceanvim
       {
         plugin = nvim-bacon; # Rust Bacon
         type = "lua";
