@@ -39,6 +39,7 @@ in {
 
       xclip
       wl-clipboard
+      curl  # Required for Claude AI plugins
     ];
 
     plugins = with pkgs.vimPlugins; [
@@ -107,6 +108,16 @@ in {
       nvim-lint
 
       neorg
+
+      ## Claude AI plugins
+      # CodeCompanion - Zed-like AI assistant
+      (withLua codecompanion-nvim)
+
+      # Avante - Cursor-like AI assistant
+      nui-nvim
+      img-clip-nvim
+      render-markdown-nvim
+      (withLua avante-nvim)
     ];
   };
 }
