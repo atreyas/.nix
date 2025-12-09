@@ -1,4 +1,3 @@
-local lspconfig = require('lspconfig')
 local lsp = vim.lsp
 
 local on_attach = function(client, bufnr)
@@ -54,7 +53,7 @@ require('neodev').setup {
   end,
 }
 
-lspconfig.lua_ls.setup {
+lsp.config.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   Lua = {
@@ -63,6 +62,7 @@ lspconfig.lua_ls.setup {
   },
 }
 
+--[[
 require('rust-tools').setup {
   tools = {
     autoSetHints = true,
@@ -80,7 +80,8 @@ require('rust-tools').setup {
     capabilities = capabilities,
   },
 }
-lspconfig.rust_analyzer.setup {
+]]
+lsp.config.rust_analyzer.setup {
   on_attach = function(client, bufnr)
     -- Hover actions
     vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
@@ -107,7 +108,7 @@ lspconfig.rust_analyzer.setup {
 
 local servers = { 'clangd', 'pyright', 'ts_ls', 'vls', 'yamlls' }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  lsp.config[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
