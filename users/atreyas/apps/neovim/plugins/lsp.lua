@@ -1,4 +1,5 @@
 local lsp = vim.lsp
+local lspconfig = require('lspconfig')
 
 local on_attach = function(client, bufnr)
   local bufmap = function(keys, func) vim.api.nvim_buf_set_keymap(bufnr, 'n', keys, func) end
@@ -53,42 +54,21 @@ require('neodev').setup {
   end,
 }
 
-lsp.config.lua_ls.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  Lua = {
+  settings = {
+    Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+    },
   },
 }
 
---[[
-require('rust-tools').setup {
-  tools = {
-    autoSetHints = true,
-    runnables = {
-      use_telescope = true
-    },
-    inlay_hints = {
-      show_parameter_hints = true,
-      parameter_hints_prefix = "<- ",
-      other_hints_prefix = "=> ",
-    },
-  },
-  server = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  },
-}
-]]
-lsp.config.rust_analyzer.setup {
-  on_attach = function(client, bufnr)
-    -- Hover actions
-    vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-    -- Code action groups
-    vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    on_attach(client, bufnr)
-  end,
+-- Note: rust-tools is deprecated, using rustaceanvim instead
+-- Rustaceanvim auto-configures itself, provides :RustLsp commands
+lspconfig.rust_analyzer.setup {
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
@@ -107,8 +87,8 @@ lsp.config.rust_analyzer.setup {
 }
 
 local servers = { 'clangd', 'pyright', 'ts_ls', 'vls', 'yamlls' }
-for _, lsp in ipairs(servers) do
-  lsp.config[lsp].setup {
+for _, server in ipairs(servers) do
+  lspconfig[server].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
