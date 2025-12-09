@@ -4,23 +4,25 @@
   programs.git = {
     enable = true;
     includes = [ { path = "./gitconfig"; } ];
-    userName = "Atreya Srivathsan";
-    userEmail = "${user.email}";
-    diff-so-fancy = {
-      enable = false;
-      changeHunkIndicators = true;
-    };
-    difftastic = {
-      enable = true;
-      background = "dark";
-      color = "auto";
-      display = "inline";
-
-    };
-    lfs.enable = true;
-    extraConfig = {
+    settings = {
+      user.name = "Atreya Srivathsan";
+      user.email = "${user.email}";
       credential.helper = "manager";
     };
+    lfs.enable = true;
   };
+  programs.difftastic = {
+    enable = true;
+    options = {
+      color = "auto";
+      background = "dark";
+      display = "inline";
+    };
+  };
+  programs.diff-so-fancy = {
+    enable = false;
+    settings.changeHunkIndicators = true;
+  };
+
   home.packages = with pkgs; [ git-credential-manager ];
 }
