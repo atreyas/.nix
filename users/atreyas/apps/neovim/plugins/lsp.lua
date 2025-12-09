@@ -1,5 +1,4 @@
 local lsp = vim.lsp
-local lspconfig = require('lspconfig')
 
 local on_attach = function(client, bufnr)
   local bufmap = function(keys, func) vim.api.nvim_buf_set_keymap(bufnr, 'n', keys, func) end
@@ -45,6 +44,14 @@ end
 local capabilities = lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- Set up callbacks for all LSP servers
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    on_attach(client, args.buf)
+  end,
+})
+
 require('neodev').setup {
   override = function(root_dir, library)
     if root_dir:find(".nix", 1, true) == 1 then
@@ -54,8 +61,10 @@ require('neodev').setup {
   end,
 }
 
-lspconfig.lua_ls.setup {
-  on_attach = on_attach,
+vim.lsp.config.lua_ls = {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -64,11 +73,14 @@ lspconfig.lua_ls.setup {
     },
   },
 }
+lsp.enable('lua_ls')
 
 -- Note: rust-tools is deprecated, using rustaceanvim instead
 -- Rustaceanvim auto-configures itself, provides :RustLsp commands
-lspconfig.rust_analyzer.setup {
-  on_attach = on_attach,
+vim.lsp.config.rust_analyzer = {
+  cmd = { 'rust-analyzer' },
+  filetypes = { 'rust' },
+  root_markers = { 'Cargo.toml', 'rust-project.json' },
   capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
@@ -85,11 +97,9 @@ lspconfig.rust_analyzer.setup {
     },
   }
 }
+lsp.enable('rust_analyzer')
 
 local servers = { 'clangd', 'pyright', 'ts_ls', 'vls', 'yamlls' }
 for _, server in ipairs(servers) do
-  lspconfig[server].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+  lsp.enable(server)
 end
