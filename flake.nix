@@ -42,6 +42,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    # Secrets management
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -51,6 +56,7 @@
     flake-parts,
     home-manager,
     impermanence,
+    agenix,
     ...
   } @ inputs:
   let
@@ -74,6 +80,8 @@
       ./system/configuration.nix
       impermanence.nixosModules.impermanence
       ./system/impermanence.nix
+      agenix.nixosModules.default
+      ./system/secrets.nix
       home-manager.nixosModules.home-manager
       { # This is separate from the above
         home-manager = {
