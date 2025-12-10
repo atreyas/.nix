@@ -45,6 +45,7 @@
 
       xclip
       drawio
+      discord
       inputs.rippkgs
 
       nerd-fonts.dejavu-sans-mono

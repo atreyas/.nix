@@ -157,7 +157,7 @@
 
     comma
 
-    config.boot.kernelPackages.perf
+    perf
     config.boot.kernelPackages.tmon
 
   ];
