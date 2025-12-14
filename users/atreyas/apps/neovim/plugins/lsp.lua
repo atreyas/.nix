@@ -1,7 +1,9 @@
 local lsp = vim.lsp
 
 local on_attach = function(client, bufnr)
-  local bufmap = function(keys, func) vim.api.nvim_buf_set_keymap(bufnr, 'n', keys, func) end
+  local bufmap = function(keys, func)
+    vim.keymap.set('n', keys, func, { buffer = bufnr, noremap = true, silent = true })
+  end
 
   bufmap('<leader>r', lsp.buf.rename)
   bufmap('<leader>a', lsp.buf.code_action)
@@ -11,10 +13,10 @@ local on_attach = function(client, bufnr)
   bufmap('gI', lsp.buf.implementation)
   bufmap('<leader>D', lsp.buf.type_definition)
 
-  if client.resolved_capabilities.document_formatting then
-    bufmap('<leader>gq', lsp.buf.formatting)
-  elseif client.resolved_capabilities.document_range_formatting then
-    bufmap('<leader>gq', lsp.buf.range_formatting)
+  if client.server_capabilities.documentFormattingProvider then
+    bufmap('<leader>gq', lsp.buf.format)
+  elseif client.server_capabilities.documentRangeFormattingProvider then
+    bufmap('<leader>gq', lsp.buf.format)
   end
 
   -- bufmap('gr', require('telescope.builtin').lsp_references)
@@ -23,15 +25,15 @@ local on_attach = function(client, bufnr)
 
   bufmap('<C-space>', lsp.buf.hover)
 
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_exec([[
       hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
       hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
       augroup lsp_document_highlight
         autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua lsp.buf.clear_references()
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
     ]], false)
   end
@@ -84,7 +86,7 @@ vim.lsp.config.rust_analyzer = {
   capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
-      checkOnSave = {
+      check = {
         command = "clippy",
       },
       workspace = {
