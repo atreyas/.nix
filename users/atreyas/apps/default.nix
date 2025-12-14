@@ -11,5 +11,6 @@
     ./nnn
     ./starship
     ./zellij
+    ./zsh
   ];
 }

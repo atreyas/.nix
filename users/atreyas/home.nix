@@ -68,7 +68,7 @@
     file = {
       # Make a symlink from dotfiles/screenrc to $HOME/.screenrc
       # ".screenrc".source = dotfiles/screenrc;
-      ".zshrc".source = ./dotfiles/zshrc;
+      # ".zshrc".source = ./dotfiles/zshrc; # Now managed by programs.zsh
       ".gitconfig".source = ./dotfiles/gitconfig;
       ".gitignore_global".source = ./dotfiles/gitignore_global;
 
