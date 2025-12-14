@@ -111,8 +111,8 @@ in {
       neorg
 
       ## Claude AI plugins
-      # CodeCompanion - Zed-like AI assistant
-      (withLua codecompanion-nvim)
+      # CodeCompanion - Zed-like AI assistant (disabled due to warnings)
+      # (withLua codecompanion-nvim)
 
       # Avante - Cursor-like AI assistant
       nui-nvim
