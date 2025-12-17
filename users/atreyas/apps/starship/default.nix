@@ -21,7 +21,6 @@ in
         "$nodejs"
         "$deno"
         "$bun"
-        "$typescript"
         "$lua"
         "$rust"
         "$java"
@@ -117,7 +116,6 @@ in
       java = lang "" "red";
       c = lang "" "blue";
       golang = lang "" "blue";
-      typescript = lang "" "blue";
       deno = lang "🦕" "green";
       bun = lang "🍞" "yellow";
       zig = lang "↯" "yellow";
