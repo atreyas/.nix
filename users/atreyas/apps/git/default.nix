@@ -31,11 +31,8 @@ in
     settings = {
       user.name = "Atreya Srivathsan";
       user.email = "${user.email}";
-      # Use agenix credential helper first, fall back to manager
-      credential.helper = [
-        "${git-credential-agenix}/bin/git-credential-agenix get"
-        "manager"
-      ];
+      # Use agenix credential helper for GitHub
+      credential.helper = "${git-credential-agenix}/bin/git-credential-agenix get";
     };
     lfs.enable = true;
   };
@@ -53,7 +50,6 @@ in
   };
 
   home.packages = with pkgs; [
-    git-credential-manager
     git-credential-agenix
   ];
 }
