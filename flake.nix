@@ -121,5 +121,28 @@
         specialArgs = { inherit inputs hostname system user; };
       };
     };
+
+    # Standalone home-manager configurations (for non-NixOS systems like Ubuntu)
+    homeConfigurations = {
+      "${user.name}" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./users/${user.name} ];
+        extraSpecialArgs = { inherit inputs system user; };
+      };
+
+      # Ubuntu work laptop configuration
+      "${user.name}@ubuntu" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./users/${user.name}
+          # Ubuntu-specific overrides can go here
+          {
+            # Disable NixOS-specific features
+            # You can add Ubuntu-specific settings here
+          }
+        ];
+        extraSpecialArgs = { inherit inputs system user; };
+      };
+    };
   };
 }
