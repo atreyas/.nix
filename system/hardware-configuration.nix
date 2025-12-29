@@ -43,6 +43,7 @@
       device = "/dev/disk/by-label/NIX";
       fsType = "btrfs";
       options = btrfsOptions ++ [ "subvol=home" ];
+      neededForBoot = true;
     };
   };
 
