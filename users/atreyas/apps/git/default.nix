@@ -33,6 +33,7 @@ in
       user.email = "${user.email}";
       # Use agenix credential helper for GitHub
       credential.helper = "${git-credential-agenix}/bin/git-credential-agenix get";
+      core.excludesFile = "${config.home.homeDirectory}/.gitignore_global";
     };
     lfs.enable = true;
   };
