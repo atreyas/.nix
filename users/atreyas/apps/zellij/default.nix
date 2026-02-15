@@ -5,12 +5,16 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      #default_shell = "nushell";
-      #theme = "gruvbox";
+      theme = "gruvbox";
       scroll_buffer_size = 10000;
       layout = "default";
       simplified_ui = false;
-      keybinds = 
+
+      # Kitty compatibility
+      copy_on_select = true;
+      scrollback_editor = "nvim";
+
+      keybinds =
       let
         alt_n_tab_n = n: {
           "bind \"Alt ${builtins.toString n}\"" = { GoToTab = n; };
@@ -33,19 +37,20 @@
         ;
       };
 
+      # Gruvbox theme matching Kitty/Alacritty colors
       themes = {
         gruvbox = {
-          fg = "#D5C4A1";
+          fg = "#d4be98";
           bg = "#282828";
-          black = "#3C3836";
-          red = "#CC241D";
-          green =  "#98971A";
-          yellow = "#D79921";
-          blue = "#3C8588";
-          magenta = "#B16286";
-          cyan = "#689D6A";
-          white = "#FBF1C7";
-          orange = "#D65D0E";
+          black = "#3c3836";
+          red = "#ea6962";
+          green = "#a9b665";
+          yellow = "#d8a657";
+          blue = "#7daea3";
+          magenta = "#d3869b";
+          cyan = "#89b482";
+          white = "#d4be98";
+          orange = "#e78a4e";
         };
       };
     };

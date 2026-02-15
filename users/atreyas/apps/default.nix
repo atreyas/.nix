@@ -1,6 +1,7 @@
 {
   imports = [
-    ./alacritty
+    #./alacritty
+    ./kitty
     #./doomemacs
     ./direnv
     #./emacs
