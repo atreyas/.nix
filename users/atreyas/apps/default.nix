@@ -8,7 +8,6 @@
     ./firefox
     ./git
     ./neovim
-    ./lunarvim
     ./nnn
     ./starship
     ./zellij
