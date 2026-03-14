@@ -10,6 +10,10 @@
       layout = "default";
       simplified_ui = false;
 
+      # Session persistence
+      session_serialization = true;
+      serialize_pane_viewport = true;
+
       # Kitty compatibility
       copy_on_select = true;
       scrollback_editor = "nvim";
@@ -35,6 +39,10 @@
           alt_n_tab_n 8 //
           alt_n_tab_n 9
         ;
+        pane = {
+          "bind \"v\"" = { NewPane = "Right"; SwitchToMode = "Normal"; };
+          "bind \"d\"" = { NewPane = "Down"; SwitchToMode = "Normal"; };
+        };
       };
 
       # Gruvbox theme matching Kitty/Alacritty colors

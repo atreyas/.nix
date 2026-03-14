@@ -25,8 +25,8 @@
       shell = "zsh";
 
       # Performance (GPU-accelerated like Alacritty)
-      repaint_delay = 10;
-      input_delay = 3;
+      repaint_delay = 6;
+      input_delay = 1;
       sync_to_monitor = true;
 
       # Bell
@@ -37,9 +37,22 @@
       url_style = "curly";
       detect_urls = true;
 
+      # Clipboard
+      copy_on_select = "clipboard";
+      strip_trailing_spaces = "smart";
+
+      # Shell integration
+      shell_integration = "enabled";
+      scrollback_pager_history_size = 100;
+
       # Terminal compatibility for zellij/neovim
       term = "xterm-kitty";
-      allow_remote_control = true;
+      allow_remote_control = "socket-only";
+      listen_on = "unix:/tmp/kitty";
+
+      # Tab bar
+      tab_bar_style = "powerline";
+      tab_title_template = "{index}: {title}";
 
       # Colors - Gruvbox (matching Alacritty exactly)
       foreground = "#d4be98";
@@ -79,6 +92,9 @@
       "ctrl+shift+enter" = "new_window";
       "ctrl+shift+t" = "new_tab";
       "ctrl+shift+w" = "close_window";
+
+      # Zoom
+      "ctrl+shift+z" = "toggle_layout stack";
 
       # Font size
       "ctrl+equal" = "change_font_size all +1.0";

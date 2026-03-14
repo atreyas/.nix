@@ -18,10 +18,4 @@ layout {
 
     tab name="workspace" cwd="$HOME/workspace"
 
-    tab name="tippy-tops" {
-        pane split_direction="vertical" {
-            pane name="htop" command="htop"
-            pane name="btop" command="btop"
-        }
-    }
 }
