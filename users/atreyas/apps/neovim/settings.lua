@@ -47,4 +47,8 @@ o.writebackup = false
 o.swapfile = false
 o.errorbells = false
 
+map.set('n', '<leader>e', vim.diagnostic.open_float)
+map.set('n', '<leader>n', vim.diagnostic.goto_next)
+map.set('n', '<leader>p', vim.diagnostic.goto_prev)
+
 
