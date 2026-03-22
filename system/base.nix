@@ -97,7 +97,7 @@
   };
 
   services.openssh = {
-    enable = true;
+    enable = false;
     startWhenNeeded = false;
   };
   systemd.services.sshd.wantedBy = lib.mkForce [];
