@@ -96,6 +96,12 @@
     };
   };
 
+  services.openssh = {
+    enable = true;
+    startWhenNeeded = false;
+  };
+  systemd.services.sshd.wantedBy = lib.mkForce [];
+
   services.journald.extraConfig = ''
     Storage=volatile
     RuntimeMaxUse=64M
