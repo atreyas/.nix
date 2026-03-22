@@ -7,7 +7,8 @@ echo
 # Check for SSH key
 if [ ! -f ~/.ssh/id_ed25519.pub ]; then
     echo "No SSH key found. Generating one..."
-    ssh-keygen -t ed25519 -C "atreyas@gmail.com"
+    read -p "Enter email: " email
+    ssh-keygen -t ed25519 -C "${email}"
     echo
 fi
 

@@ -19,7 +19,7 @@
       system = "x86_64-linux";
       user = {
         name = "atreyas";
-	email = "atreyas.gmail.com";
+	email = name + ".gmail.com";
       };
       pkgs = import nixpkgs {
         inherit system;

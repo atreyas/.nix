@@ -1,8 +1,7 @@
 {
-  boot = {
-    supportedFilesystems = [ "ext4" ];
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  };
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   # SSH access for headless server
   services.openssh = {

@@ -1,10 +1,7 @@
 { config, hostname, lib, pkgs, system, user, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [];
 
   boot = {
     loader = {

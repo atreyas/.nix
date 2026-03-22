@@ -7,7 +7,7 @@ This directory contains encrypted secrets for your NixOS configuration using [ag
 ### 1. Generate SSH Key (if you don't have one)
 
 ```bash
-ssh-keygen -t ed25519 -C "atreyas@gmail.com"
+ssh-keygen -t ed25519 -C "atreyas@users.noreply.github.com"
 ```
 
 ### 2. Get Your SSH Public Keys
