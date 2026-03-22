@@ -1,8 +1,8 @@
-{ config, lib, ... }
+{ config, lib, ... }:
 {
   boot = {
     initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-    kernetModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-intel" ];
   };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
