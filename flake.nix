@@ -125,14 +125,14 @@
         ] ++ desktopModules;
         specialArgs = { inherit inputs hostname system user; };
       };
-      "medaition" =
+      "mediation" =
       let
-        hostname = "medaition";
+        hostname = "mediation";
       in lib.nixosSystem {
         inherit system;
 
         modules = [
-          ./system/hosts/medaition/system-configuration.nix
+          ./system/hosts/mediation/system-configuration.nix
         ] ++ serverModules;
         specialArgs = { inherit inputs hostname system user; };
       };
