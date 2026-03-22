@@ -76,14 +76,13 @@
       name = "atreyas";
       email = name + "@gmail.com";
     };
-    defaultModules = [
-      ./system/configuration.nix
+    commonModules = [
       impermanence.nixosModules.impermanence
       ./system/impermanence.nix
       agenix.nixosModules.default
       ./system/secrets.nix
       home-manager.nixosModules.home-manager
-      { # This is separate from the above
+      {
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
@@ -95,6 +94,12 @@
         };
       }
     ];
+    desktopModules = [
+      ./system/configuration.nix
+    ] ++ commonModules;
+    serverModules = [
+      ./system/base.nix
+    ] ++ commonModules;
   in {
     nixosConfigurations = {
       "r3-fw13-nix" =
@@ -106,7 +111,7 @@
         modules = [
           #nixos-hardware.nixosModules.framework-13-7040-amd
           ./system/hosts/r3-fw13-nix/system-configuration.nix
-        ] ++ defaultModules;
+        ] ++ desktopModules;
         specialArgs = { inherit inputs hostname system user; };
       };
       "primus" =
@@ -117,7 +122,18 @@
 
         modules = [
           ./system/hosts/primus/system-configuration.nix
-        ] ++ defaultModules;
+        ] ++ desktopModules;
+        specialArgs = { inherit inputs hostname system user; };
+      };
+      "medaition" =
+      let
+        hostname = "medaition";
+      in lib.nixosSystem {
+        inherit system;
+
+        modules = [
+          ./system/hosts/medaition/system-configuration.nix
+        ] ++ serverModules;
         specialArgs = { inherit inputs hostname system user; };
       };
     };
